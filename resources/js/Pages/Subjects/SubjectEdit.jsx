@@ -3,36 +3,24 @@ import { router, usePage } from "@inertiajs/react";
 import { Form, message } from "antd";
 import React from "react";
 import { AiOutlineLeft } from "react-icons/ai";
-import { ClassroomFormFields } from "../../Components/Classroom/ClassroomFormFields";
 import BackButton from "../../Components/Common/BackButton";
+import { SubjectFormFields } from "../../Components/Subjects/SubjectFormFields";
 import AppShell from "../../Layouts/AppShell";
 
-const ClassroomEdit = ({ classroom }) => {
+const SubjectEdit = ({ subject }) => {
     const { errors } = usePage().props;
 
     const onFinish = (values) => {
-        router.patch(`/classrooms/${classroom.id}`, values);
-        message.success("Classroom updated");
+        router.patch(`/subjects/${subject.id}`, values);
+        message.success("Subject updated");
         console.log("edit: ", errors);
     };
 
     return (
         <PageContainer
             loading={false}
-            title="Classroom"
-            subTitle="Edit classroom"
-            breadcrumb={{
-                routes: [
-                    {
-                        path: "/classrooms",
-                        breadcrumbName: "Classrooms",
-                    },
-                    {
-                        path: "/",
-                        breadcrumbName: "Edit",
-                    },
-                ],
-            }}
+            title="Subject"
+            subTitle="Edit subject"
             backIcon={<AiOutlineLeft />}
             extra={
                 <>
@@ -42,17 +30,17 @@ const ClassroomEdit = ({ classroom }) => {
         >
             <ProCard size="small">
                 <Form
-                    name="edit-classroom-form"
+                    name="edit-subject-form"
                     layout="vertical"
                     onFinish={onFinish}
-                    initialValues={classroom}
+                    initialValues={subject}
                 >
-                    <ClassroomFormFields errors={errors} />
+                    <SubjectFormFields errors={errors} />
                 </Form>
             </ProCard>
         </PageContainer>
     );
 };
 
-ClassroomEdit.layout = (page) => <AppShell children={page} />;
-export default ClassroomEdit;
+SubjectEdit.layout = (page) => <AppShell children={page} />;
+export default SubjectEdit;

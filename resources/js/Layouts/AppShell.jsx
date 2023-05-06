@@ -13,9 +13,9 @@ import {
     AiOutlineUnorderedList,
     AiOutlineUser,
 } from "react-icons/ai";
-import defaultProps from "./defaultProps";
 import { AppModalProvider } from "../Contexts/AppModalContext";
 import { router } from "@inertiajs/react";
+import navMenus from "./navMenus";
 
 const SearchInput = () => {
     const { token } = theme.useToken();
@@ -102,7 +102,7 @@ const AppShell = ({ children }) => {
                                 width: "331px",
                             },
                         ]}
-                        {...defaultProps}
+                        {...navMenus}
                         // location={{
                         //   pathname,
                         // }}

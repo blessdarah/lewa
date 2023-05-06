@@ -1,19 +1,20 @@
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { router } from "@inertiajs/react";
-import { Breadcrumb, Button, Input } from "antd";
+import { Button, Input } from "antd";
 import React, { useState } from "react";
 import { AiOutlineArrowLeft, AiOutlinePlus } from "react-icons/ai";
-import { ClassroomTable } from "../../Components/Classroom/ClassroomTable.jsx";
+import { SubjectTable } from "../../Components/Subjects/SubjectTable.jsx";
 import AppShell from "../../Layouts/AppShell.jsx";
 
-const ClassroomIndex = ({ classrooms }) => {
-    const [filteredData, setFilteredData] = useState(classrooms);
+const SubjectIndex = ({ subjects }) => {
+    const [filteredData, setFilteredData] = useState(subjects);
 
     const filter = ({ target: { value } }) => {
         setFilteredData(
-            classrooms.filter(
+            subjects.filter(
                 (item) =>
-                    item.name.toLowerCase().includes(value.toLowerCase()) ||
+                    item.code.toLowerCase().includes(value.toLowerCase()) ||
+                    item.title.toLowerCase().includes(value.toLowerCase()) ||
                     item.description.toLowerCase().includes(value.toLowerCase())
             )
         );
@@ -21,11 +22,14 @@ const ClassroomIndex = ({ classrooms }) => {
     return (
         <PageContainer
             loading={false}
+            title="Subject"
+            subTitle="Manage subjects"
+            backIcon={<AiOutlineArrowLeft />}
             breadcrumb={{
                 routes: [
                     {
                         path: "/",
-                        breadcrumbName: "Classrooms",
+                        breadcrumbName: "Subjects",
                     },
                     {
                         path: "/",
@@ -33,31 +37,35 @@ const ClassroomIndex = ({ classrooms }) => {
                     },
                 ],
             }}
-            title="Classroom"
-            subTitle="Manage classrooms"
-            backIcon={<AiOutlineArrowLeft />}
             extra={
                 <>
                     <Button
                         type="primary"
-                        onClick={() => router.get("/classrooms/create")}
+                        onClick={() => router.get("/subjects/create")}
                         icon={<AiOutlinePlus />}
                     >
-                        New class
+                        New subject
                     </Button>
                 </>
             }
         >
             <ProCard
                 size="small"
-                extra={<Input placeholder="Filter" onChange={filter} />}
+                extra={
+                    <Input
+                        allowClear
+                        type="search"
+                        placeholder="Filter"
+                        onChange={filter}
+                    />
+                }
             >
-                <ClassroomTable classrooms={filteredData} />
+                <SubjectTable subjects={filteredData} />
             </ProCard>
         </PageContainer>
     );
 };
 
-ClassroomIndex.layout = (page) => <AppShell children={page} />;
+SubjectIndex.layout = (page) => <AppShell children={page} />;
 
-export default ClassroomIndex;
+export default SubjectIndex;

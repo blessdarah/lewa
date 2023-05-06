@@ -3,35 +3,41 @@ import { router, usePage } from "@inertiajs/react";
 import { Form, message } from "antd";
 import React from "react";
 import { AiOutlineLeft } from "react-icons/ai";
-import { ClassroomFormFields } from "../../Components/Classroom/ClassroomFormFields";
 import BackButton from "../../Components/Common/BackButton";
+import { SubjectFormFields } from "../../Components/Subjects/SubjectFormFields";
 import AppShell from "../../Layouts/AppShell";
 
-const ClassroomCreate = () => {
+const SubjectCreate = () => {
     const { errors } = usePage().props;
 
     const onFinish = (values) => {
-        router.post("/classrooms", values);
-        message.success("New class created");
+        router.post("/subjects", values);
+        message.success("New subject created");
     };
 
     return (
         <PageContainer
             loading={false}
-            title="Classroom"
-            subTitle="Manage classrooms"
+            title="Subjects"
+            subTitle="Manage subjects"
+            backIcon={<AiOutlineLeft />}
             breadcrumb={{
                 routes: [
                     {
-                        path: "/classrooms",
+                        path: "/",
                         breadcrumbName: "Classrooms",
                     },
                     {
                         path: "/",
-                        breadcrumbName: "Create",
+                        breadcrumbName: "List",
                     },
                 ],
             }}
+            extra={
+                <>
+                    <BackButton />
+                </>
+            }
         >
             <ProCard size="small">
                 <Form
@@ -39,12 +45,12 @@ const ClassroomCreate = () => {
                     layout="vertical"
                     onFinish={onFinish}
                 >
-                    <ClassroomFormFields errors={errors} />
+                    <SubjectFormFields errors={errors} />
                 </Form>
             </ProCard>
         </PageContainer>
     );
 };
 
-ClassroomCreate.layout = (page) => <AppShell children={page} />;
-export default ClassroomCreate;
+SubjectCreate.layout = (page) => <AppShell children={page} />;
+export default SubjectCreate;

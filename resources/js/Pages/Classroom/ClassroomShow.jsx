@@ -5,7 +5,6 @@ import React from "react";
 import {
     AiOutlineDelete,
     AiOutlineEdit,
-    AiOutlineGroup,
     AiOutlineUsergroupAdd,
 } from "react-icons/ai";
 import BackButton from "../../Components/Common/BackButton";
@@ -44,14 +43,20 @@ const ClassroomShow = ({ classroom }) => {
     return (
         <PageContainer
             title="Classroom detail"
+            breadcrumb={{
+                routes: [
+                    {
+                        path: "/classrooms",
+                        breadcrumbName: "Classrooms",
+                    },
+                    {
+                        path: "/",
+                        breadcrumbName: "Detail",
+                    },
+                ],
+            }}
             extra={
                 <>
-                    <BackButton />
-                </>
-            }
-        >
-            <ProCard
-                extra={[
                     <Space>
                         <Button
                             icon={<AiOutlineEdit />}
@@ -77,9 +82,11 @@ const ClassroomShow = ({ classroom }) => {
                                 Delete
                             </Button>
                         </Popconfirm>
-                    </Space>,
-                ]}
-            >
+                    </Space>
+                </>
+            }
+        >
+            <ProCard>
                 <Descriptions title="Classroom info">
                     <Descriptions.Item label="Code">
                         {classroom.code}

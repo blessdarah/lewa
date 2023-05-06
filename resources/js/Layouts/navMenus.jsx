@@ -11,11 +11,11 @@ export default {
         routes: [
             {
                 path: "/students",
-                name: "Students",
+                name: "Dashboard",
                 icon: <HomeOutlined />,
             },
             {
-                name: "Classroom",
+                name: "Management",
                 icon: <AppstoreOutlined />,
                 path: "/classroom",
                 routes: [
@@ -23,6 +23,14 @@ export default {
                         path: "/classrooms",
                         name: "Classrooms",
                         icon: <TagsOutlined />,
+                    },
+                    {
+                        path: "/subjects",
+                        name: "Subjects",
+                    },
+                    {
+                        path: "/teachers",
+                        name: "Teachers",
                     },
                 ],
             },
