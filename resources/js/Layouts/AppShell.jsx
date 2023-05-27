@@ -82,6 +82,7 @@ const AppShell = ({ children }) => {
                         logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4RigS-XU9n7biYln3l1igYBtgAVv3wjyWYw&usqp=CAU"
                         title="Lewa"
                         prefixCls="my-prefix"
+                        locale="en-US"
                         bgLayoutImgList={[
                             {
                                 src: "https://img.alicdn.com/imgextra/i2/O1CN01O4etvp1DvpFLKfuWq_!!6000000000279-2-tps-609-606.png",

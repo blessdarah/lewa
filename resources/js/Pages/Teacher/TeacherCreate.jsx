@@ -2,27 +2,32 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { router, usePage } from "@inertiajs/react";
 import { Form, message } from "antd";
 import React from "react";
-import { ClassroomFormFields } from "../../Components/Classroom/ClassroomFormFields";
+import { TeacherFormFields } from "../../Components/Teacher/TeacherFormFields";
 import AppShell from "../../Layouts/AppShell";
+import { useDate } from "../../Hooks/date.hook";
 
-const ClassroomCreate = () => {
+const TeacherCreate = () => {
+    const { formatDate } = useDate();
     const { errors } = usePage().props;
 
     const onFinish = (values) => {
-        router.post("/classrooms", values);
+        router.post("/teachers", {
+            ...values,
+            dob: formatDate(values.dob),
+        });
         message.success("New class created");
     };
 
     return (
         <PageContainer
             loading={false}
-            title="Classroom"
-            subTitle="Manage classrooms"
+            title="Teacher"
+            subTitle="Manage teachers"
             breadcrumb={{
                 routes: [
                     {
-                        path: "/classrooms",
-                        breadcrumbName: "Classrooms",
+                        path: "/teachers",
+                        breadcrumbName: "Teachers",
                     },
                     {
                         path: "/",
@@ -33,16 +38,16 @@ const ClassroomCreate = () => {
         >
             <ProCard size="small">
                 <Form
-                    name="create-classroom-form"
+                    name="create-teacher-form"
                     layout="vertical"
                     onFinish={onFinish}
                 >
-                    <ClassroomFormFields errors={errors} />
+                    <TeacherFormFields errors={errors} />
                 </Form>
             </ProCard>
         </PageContainer>
     );
 };
 
-ClassroomCreate.layout = (page) => <AppShell children={page} />;
-export default ClassroomCreate;
+TeacherCreate.layout = (page) => <AppShell children={page} />;
+export default TeacherCreate;

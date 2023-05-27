@@ -1,6 +1,15 @@
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { router } from "@inertiajs/react";
-import { Button, Descriptions, message, Popconfirm, Space, Tabs } from "antd";
+import {
+    Button,
+    Col,
+    Descriptions,
+    message,
+    Popconfirm,
+    Row,
+    Space,
+    Tabs,
+} from "antd";
 import React from "react";
 import {
     AiOutlineDelete,
@@ -9,7 +18,7 @@ import {
 } from "react-icons/ai";
 import AppShell from "../../Layouts/AppShell";
 
-const SubjectShow = ({ subject }) => {
+const StudentShow = ({ student }) => {
     const onChange = (key) => {
         console.log(key);
     };
@@ -19,37 +28,52 @@ const SubjectShow = ({ subject }) => {
             key: "1",
             label: (
                 <span>
-                    <AiOutlineUsergroupAdd /> Classes offered
+                    <AiOutlineUsergroupAdd /> Personal info
                 </span>
             ),
             children: `Content of Tab Pane 1`,
         },
         {
             key: "2",
-            label: "Teachers",
+            label: "Parental info",
             children: `Content of Tab Pane 2`,
+        },
+        {
+            key: "3",
+            label: "Class",
+            children: `Content of Tab Pane 3`,
+        },
+        {
+            key: "4",
+            label: "Disciplinary info",
+            children: `Content of Tab Pane 3`,
+        },
+        {
+            key: "5",
+            label: "Test history",
+            children: `Content of Tab Pane 3`,
         },
     ];
     const handleDelete = (e) => {
-        router.delete(`/subjects/${subject.id}`);
-        message.success("Subject deleted successfully");
+        router.delete(`/students/${student.id}`);
+        message.success("Student deleted successfully");
     };
 
     return (
         <PageContainer
-            title="Subject detail"
+            title="Student detail"
             extra={
                 <Space>
                     <Button
                         icon={<AiOutlineEdit />}
                         onClick={() =>
-                            router.get(`/subjects/${subject.id}/edit`)
+                            router.get(`/students/${student.id}/edit`)
                         }
                     >
                         Edit
                     </Button>
                     <Popconfirm
-                        title="Delete the subject"
+                        title="Delete the student"
                         description="Are you sure to delete this class?"
                         onConfirm={handleDelete}
                         onCancel={undefined}
@@ -67,28 +91,14 @@ const SubjectShow = ({ subject }) => {
                 </Space>
             }
         >
-            <ProCard extra={[]}>
-                <Descriptions title="Subject info">
-                    <Descriptions.Item label="Code">
-                        {subject.code}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Title">
-                        {subject.title}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Description">
-                        {subject.description}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Coefficient">
-                        {subject.coefficient}
-                    </Descriptions.Item>
-                </Descriptions>
-
+            <ProCard extra={[]} style={{ marginBottom: "1rem" }}></ProCard>
+            <ProCard>
                 <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
             </ProCard>
         </PageContainer>
     );
 };
 
-SubjectShow.layout = (page) => <AppShell children={page} />;
+StudentShow.layout = (page) => <AppShell children={page} />;
 
-export default SubjectShow;
+export default StudentShow;

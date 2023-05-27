@@ -10,7 +10,7 @@ export default {
         path: "/",
         routes: [
             {
-                path: "/students",
+                path: "/dashboard",
                 name: "Dashboard",
                 icon: <HomeOutlined />,
             },
@@ -31,6 +31,10 @@ export default {
                     {
                         path: "/teachers",
                         name: "Teachers",
+                    },
+                    {
+                        path: "/students",
+                        name: "Students",
                     },
                 ],
             },

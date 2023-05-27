@@ -25,7 +25,7 @@ class UpdateclassroomRequest extends FormRequest
         return [
             "name" => "required",
             "code" => ["required", Rule::unique(table: "classrooms", column: "code")->ignore($this->code)],
-           "description" => "required"
+            "description" => "required"
         ];
     }
 }

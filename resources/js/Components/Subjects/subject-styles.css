@@ -1,0 +1,12 @@
+.ant-transfer-list:first-child {
+  flex: none;
+  width: 47%;
+    height: auto;
+    max-height: 500px;
+}
+.ant-transfer-list:last-child {
+  flex: none;
+  width: 47%;
+    height: auto;
+    max-height: 500px;
+}

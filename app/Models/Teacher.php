@@ -5,26 +5,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-class Classroom extends Model
+class Teacher extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["name", "code", "description"];
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'idc_number',
+        'gender',
+        'address',
+        'email',
+        'phone_number',
+        'dob',
+        'avatar',
+        'prefix',
+    ];
 
-    public function students(): HasMany
-    {
-        return $this->hasMany(Student::class);
-    }
     public function subjects(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class);
     }
 
-    public function teachers(): HasManyThrough
+    public function classrooms(): HasManyThrough
     {
-        return $this->hasManyThrough(Subject::class, Teacher::class);
+        return $this->hasManyThrough(Subject::class, Classroom::class);
     }
 }

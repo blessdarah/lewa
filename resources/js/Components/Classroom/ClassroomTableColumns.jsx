@@ -14,4 +14,9 @@ export const classroomTableColumns = [
         dataIndex: "description",
         key: "description",
     },
+    {
+        title: "Enrollment",
+        key: "enrollment",
+        render: (_, row) => row.students.length,
+    },
 ];

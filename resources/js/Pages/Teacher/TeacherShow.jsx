@@ -1,79 +1,53 @@
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { router } from "@inertiajs/react";
-import {
-    Button,
-    Descriptions,
-    Dropdown,
-    message,
-    Popconfirm,
-    Space,
-    Tabs,
-} from "antd";
+import { Button, Descriptions, message, Popconfirm, Space, Tabs } from "antd";
 import React from "react";
 import {
     AiOutlineDelete,
     AiOutlineEdit,
     AiOutlineUsergroupAdd,
 } from "react-icons/ai";
+import BackButton from "../../Components/Common/BackButton";
 import AppShell from "../../Layouts/AppShell";
-import StudentListCard from "../../Components/Students/StudentListCard";
-import SubjectListCard from "../../Components/Subjects/SubjectListCard";
 
-const ClassroomShow = ({ classroom, students, subjects }) => {
+const TeacherShow = ({ teacher }) => {
     const onChange = (key) => {
         console.log(key);
     };
-
-    const dropdownOptions = [
-        {
-            key: "1",
-            label: "Attach students",
-        },
-        {
-            key: "2",
-            label: "Attach teacher",
-        },
-    ];
     const items = [
         {
             key: "1",
             label: (
                 <span>
-                    <AiOutlineUsergroupAdd /> Students
+                    <AiOutlineUsergroupAdd /> Classrooms
                 </span>
             ),
-            children: (
-                <>
-                    <StudentListCard students={students} />
-                </>
-            ),
+            children: `Content of Tab Pane 1`,
         },
         {
             key: "2",
             label: "Subjects",
-            children: (
-                <SubjectListCard classroom={classroom} subjects={subjects} />
-            ),
+            children: `Content of Tab Pane 2`,
         },
         {
             key: "3",
-            label: "Teachers",
+            label: "Notes",
             children: `Content of Tab Pane 3`,
         },
     ];
     const handleDelete = (e) => {
-        router.delete(`/classrooms/${classroom.id}`);
-        message.success("Classroom deleted successfully");
+        router.delete(`/teachers/${teacher.id}`);
+        message.success("Teacher deleted successfully");
     };
 
     return (
         <PageContainer
-            title="Classroom detail"
+            title="Teacher detail"
             breadcrumb={{
                 routes: [
                     {
-                        path: "/classrooms",
-                        breadcrumbName: "Classrooms",
+                        path: "/teachers",
+                        breadcrumbName: "Teachers",
                     },
                     {
                         path: "/",
@@ -87,13 +61,13 @@ const ClassroomShow = ({ classroom, students, subjects }) => {
                         <Button
                             icon={<AiOutlineEdit />}
                             onClick={() =>
-                                router.get(`/classrooms/${classroom.id}/edit`)
+                                router.get(`/teachers/${teacher.id}/edit`)
                             }
                         >
                             Edit
                         </Button>
                         <Popconfirm
-                            title="Delete the classroom"
+                            title="Delete the teacher"
                             description="Are you sure to delete this class?"
                             onConfirm={handleDelete}
                             onCancel={undefined}
@@ -113,28 +87,15 @@ const ClassroomShow = ({ classroom, students, subjects }) => {
             }
         >
             <ProCard>
-                <Descriptions
-                    title="Classroom info"
-                    extra={
-                        <React.Fragment>
-                            <Dropdown.Button
-                                menu={{
-                                    items: dropdownOptions,
-                                }}
-                            >
-                                Options
-                            </Dropdown.Button>
-                        </React.Fragment>
-                    }
-                >
-                    <Descriptions.Item label="Code">
-                        {classroom.code}
-                    </Descriptions.Item>
+                <Descriptions title="Teacher info">
                     <Descriptions.Item label="Name">
-                        {classroom.name}
+                        {`${teacher.prefix} ${teacher.lastname} ${teacher.firstname}`}
                     </Descriptions.Item>
-                    <Descriptions.Item label="Description">
-                        {classroom.description}
+                    <Descriptions.Item label="Tell">
+                        {teacher.phone_number}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Addres">
+                        {teacher.address}
                     </Descriptions.Item>
                 </Descriptions>
 
@@ -144,6 +105,6 @@ const ClassroomShow = ({ classroom, students, subjects }) => {
     );
 };
 
-ClassroomShow.layout = (page) => <AppShell children={page} />;
+TeacherShow.layout = (page) => <AppShell children={page} />;
 
-export default ClassroomShow;
+export default TeacherShow;
