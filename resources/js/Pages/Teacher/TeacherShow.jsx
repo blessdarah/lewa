@@ -7,8 +7,8 @@ import {
     AiOutlineEdit,
     AiOutlineUsergroupAdd,
 } from "react-icons/ai";
-import BackButton from "../../Components/Common/BackButton";
 import AppShell from "../../Layouts/AppShell";
+import { SubjectTable } from "../../Components/Subjects/SubjectTable";
 
 const TeacherShow = ({ teacher }) => {
     const onChange = (key) => {
@@ -27,7 +27,7 @@ const TeacherShow = ({ teacher }) => {
         {
             key: "2",
             label: "Subjects",
-            children: `Content of Tab Pane 2`,
+            children: <SubjectTable subjects={teacher.subjects} />,
         },
         {
             key: "3",

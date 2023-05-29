@@ -46,7 +46,6 @@ class ClassroomController extends Controller
      */
     public function show(Classroom $classroom)
     {
-        // dd(Classroom::where('id', $classroom->id)->with('subjects')->first());
         return Inertia::render("Classroom/ClassroomShow")->with([
             "classroom" => Classroom::where('id', $classroom->id)->with('subjects')->first(),
             "subjects" => Subject::orderBy('title')->get(),

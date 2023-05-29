@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTeacherRequest;
+use App\Models\Subject;
 use App\Models\Teacher;
 use Inertia\Inertia;
 
@@ -42,7 +43,8 @@ class TeacherController extends Controller
     public function show(Teacher $teacher)
     {
         return Inertia::render("Teacher/TeacherShow")->with([
-            "teacher" => $teacher
+            "teacher" => Teacher::where('id', $teacher->id)->with('subjects')->first(),
+            "subjects" => Subject::orderBy('title')->get(),
         ]);
     }
 

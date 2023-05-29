@@ -1,43 +1,33 @@
 import { Button, Card, Modal, Transfer } from "antd";
 import React, { useState } from "react";
-import { SubjectTable } from "./SubjectTable";
-import "./subject-styles.css";
+import { SubjectClassroomTable } from "./SubjectClassroomTable";
 import { router } from "@inertiajs/react";
 
-const SubjectListCard = ({ classroom, subjects }) => {
+const SubjectClassroomList = ({ subject, classrooms }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [targetKeys, setTargetKeys] = useState(
-        classroom.subjects.map((subject) => subject.id)
+        subject.classrooms.map((classroom) => classroom.id)
     );
 
-    const transferData = subjects.map((subject) => {
+    const transferData = classrooms.map((classroom) => {
         return {
-            key: subject.id,
-            title: subject.title,
-            description: subject.description,
+            key: classroom.id,
+            title: classroom.code,
+            description: classroom.description,
         };
     });
 
     const handleOk = () => {
-        router.put(`/classrooms/${classroom.id}?attach=subjects`, {
-            subjects: targetKeys,
+        router.put(`/subjects/${subject.id}?attach=classrooms`, {
+            classrooms: targetKeys,
         });
-    };
-
-    /**
-     * hanle change
-     * @param {string[]} newTargetKeys
-     */
-    const handleChange = (newTargetKeys) => {
-        setTargetKeys(newTargetKeys);
+        setIsModalOpen(false);
     };
 
     return (
         <>
             <Modal
-                width={"50rem"}
-                title="Attach subjects to this class"
-                okText="Save"
+                title="Attach classroom to subject"
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={() => setIsModalOpen(false)}
@@ -46,10 +36,8 @@ const SubjectListCard = ({ classroom, subjects }) => {
                     dataSource={transferData}
                     key="code"
                     showSearch
-                    // filterOption={filterOption}
                     targetKeys={targetKeys}
-                    onChange={handleChange}
-                    // onSearch={handleSearch}
+                    onChange={(newKeys) => setTargetKeys(newKeys)}
                     render={(item) => item.title}
                 />
             </Modal>
@@ -57,14 +45,14 @@ const SubjectListCard = ({ classroom, subjects }) => {
                 size="small"
                 extra={
                     <Button onClick={() => setIsModalOpen(true)}>
-                        Attach Subjects
+                        Attach class
                     </Button>
                 }
             >
-                <SubjectTable subjects={classroom.subjects} />
+                <SubjectClassroomTable classrooms={subject.classrooms} />
             </Card>
         </>
     );
 };
 
-export default SubjectListCard;
+export default SubjectClassroomList;

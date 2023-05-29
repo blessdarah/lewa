@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use PhpParser\Node\Stmt\Class_;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Subject extends Model
 {
@@ -12,8 +12,12 @@ class Subject extends Model
 
     protected $fillable = ["code", "title", "description", "coefficient"];
 
-    public function classrooms()
+    public function classrooms(): BelongsToMany
     {
         return $this->belongsToMany(Classroom::class);
+    }
+    public function teachers(): BelongsToMany
+    {
+        return $this->belongsToMany(Teacher::class);
     }
 }

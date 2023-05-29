@@ -8,8 +8,10 @@ import {
     AiOutlineUsergroupAdd,
 } from "react-icons/ai";
 import AppShell from "../../Layouts/AppShell";
+import SubjectClassroomList from "../../Components/Subjects/Relationships/Classrooms/SubjectClassroomList";
+import SubjectTeacherList from "../../Components/Subjects/Relationships/Teachers/SubjectTeacherList";
 
-const SubjectShow = ({ subject }) => {
+const SubjectShow = ({ subject, teachers, classrooms }) => {
     const onChange = (key) => {
         console.log(key);
     };
@@ -22,12 +24,19 @@ const SubjectShow = ({ subject }) => {
                     <AiOutlineUsergroupAdd /> Classes offered
                 </span>
             ),
-            children: `Content of Tab Pane 1`,
+            children: (
+                <SubjectClassroomList
+                    subject={subject}
+                    classrooms={classrooms}
+                />
+            ),
         },
         {
             key: "2",
             label: "Teachers",
-            children: `Content of Tab Pane 2`,
+            children: (
+                <SubjectTeacherList teachers={teachers} subject={subject} />
+            ),
         },
     ];
     const handleDelete = (e) => {

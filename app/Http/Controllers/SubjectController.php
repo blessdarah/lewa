@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
+use App\Models\Classroom;
 use App\Models\Subject;
+use App\Models\Teacher;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SubjectController extends Controller
@@ -42,7 +45,11 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        return Inertia::render("Subjects/SubjectShow", compact("subject"));
+        return Inertia::render("Subjects/SubjectShow")->with([
+            "subject" => Subject::where('id', $subject->id)->with('classrooms', 'teachers')->first(),
+            "classrooms" => Classroom::orderBy('name')->get(),
+            "teachers" => Teacher::orderBy('firstname')->get()
+        ]);
     }
 
     /**
@@ -56,9 +63,20 @@ class SubjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSubjectRequest $request, Subject $subject)
+    public function update(Request $request, Subject $subject)
     {
-        $data = $request->validated();
+        if(request()->query('attach') == 'classrooms') {
+            $subject->classrooms()->sync($request->input('classrooms'));
+            return redirect()->back();
+        }
+
+        if(request()->query('attach') == 'teachers') {
+            $subject->teachers()->sync($request->input('teachers'));
+            return redirect()->back();
+        }
+
+        $req = new UpdateSubjectRequest();
+        $data = $request->validate($req->rules());
         $subject->update($data);
         return to_route("subjects.index");
     }
