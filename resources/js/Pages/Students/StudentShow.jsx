@@ -2,11 +2,8 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { router } from "@inertiajs/react";
 import {
     Button,
-    Col,
-    Descriptions,
     message,
     Popconfirm,
-    Row,
     Space,
     Tabs,
 } from "antd";
@@ -17,8 +14,9 @@ import {
     AiOutlineUsergroupAdd,
 } from "react-icons/ai";
 import AppShell from "../../Layouts/AppShell";
+import { PersonalInfoTab } from "./Tabs/PersonalInfoTab";
 
-const StudentShow = ({ student }) => {
+const StudentShow = ({ student, classroom }) => {
     const onChange = (key) => {
         console.log(key);
     };
@@ -31,7 +29,7 @@ const StudentShow = ({ student }) => {
                     <AiOutlineUsergroupAdd /> Personal info
                 </span>
             ),
-            children: `Content of Tab Pane 1`,
+            children: <PersonalInfoTab classroom={classroom} student={student} />
         },
         {
             key: "2",
@@ -91,8 +89,7 @@ const StudentShow = ({ student }) => {
                 </Space>
             }
         >
-            <ProCard extra={[]} style={{ marginBottom: "1rem" }}></ProCard>
-            <ProCard>
+            <ProCard size="small">
                 <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
             </ProCard>
         </PageContainer>

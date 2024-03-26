@@ -15,6 +15,18 @@ export default {
                 icon: <HomeOutlined />,
             },
             {
+                name: "Settings",
+                icon: <AppstoreOutlined />,
+                path: "/settings",
+                routes: [
+                    {
+                        path: "/academic-years",
+                        name: "Academic years",
+                        icon: <TagsOutlined />,
+                    },
+                ]
+            },
+            {
                 name: "Management",
                 icon: <AppstoreOutlined />,
                 path: "/classroom",

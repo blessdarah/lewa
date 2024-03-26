@@ -18,8 +18,10 @@ import {
 import AppShell from "../../Layouts/AppShell";
 import StudentListCard from "../../Components/Students/StudentListCard";
 import SubjectListCard from "../../Components/Subjects/SubjectListCard";
+import { ClassroomSubjectTeachersTable } from "../../Components/Classroom/ClassroomSubjectTeachersTable";
 
-const ClassroomShow = ({ classroom, students, subjects }) => {
+const ClassroomShow = ({ classroom, students, subjects, teacherSubjects }) => {
+    console.log("teachers: ", teacherSubjects);
     const onChange = (key) => {
         console.log(key);
     };
@@ -34,7 +36,13 @@ const ClassroomShow = ({ classroom, students, subjects }) => {
             label: "Attach teacher",
         },
     ];
+
     const items = [
+        {
+            key: "0",
+            label: "Summary",
+            children: <ClassroomSubjectTeachersTable data={teacherSubjects} />,
+        },
         {
             key: "1",
             label: (
@@ -42,17 +50,16 @@ const ClassroomShow = ({ classroom, students, subjects }) => {
                     <AiOutlineUsergroupAdd /> Students
                 </span>
             ),
-            children: (
-                <>
-                    <StudentListCard students={students} />
-                </>
-            ),
+            children: <StudentListCard students={students} />,
         },
         {
             key: "2",
             label: "Subjects",
             children: (
-                <SubjectListCard classroom={classroom} subjects={subjects} />
+                <SubjectListCard
+                    classroom={classroom}
+                    subjects={classroom.subjects}
+                />
             ),
         },
         {
@@ -61,6 +68,7 @@ const ClassroomShow = ({ classroom, students, subjects }) => {
             children: `Content of Tab Pane 3`,
         },
     ];
+
     const handleDelete = (e) => {
         router.delete(`/classrooms/${classroom.id}`);
         message.success("Classroom deleted successfully");

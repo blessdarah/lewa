@@ -33,4 +33,5 @@ class Teacher extends Model
     {
         return $this->hasManyThrough(Subject::class, Classroom::class);
     }
+
 }

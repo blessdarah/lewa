@@ -46,10 +46,20 @@ class ClassroomController extends Controller
      */
     public function show(Classroom $classroom)
     {
+        // get all teachers and subjects taught in this class
+        $teacherSubjects = DB::table('subject_teacher as st')
+            ->join('classroom_subject as cs', 'st.subject_id', '=', 'cs.subject_id')
+            ->join('teachers as t', 't.id', '=', 'st.teacher_id')
+            ->join('subjects as s', 's.id', '=', 'st.subject_id')
+            ->where('classroom_id', $classroom->id)
+            ->select(DB::raw("concat(t.firstname, ' ', t.lastname) as teacher"), 's.title as subject')
+            ->get();
+
         return Inertia::render("Classroom/ClassroomShow")->with([
             "classroom" => Classroom::where('id', $classroom->id)->with('subjects')->first(),
             "subjects" => Subject::orderBy('title')->get(),
-            "students" => Student::with('classroom')->where('classroom_id', $classroom->id)->get()
+            "students" => Student::with('classroom')->where('classroom_id', $classroom->id)->get(),
+            "teacherSubjects" => $teacherSubjects
         ]);
     }
 

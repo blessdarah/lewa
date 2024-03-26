@@ -47,7 +47,11 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        return Inertia::render('Students/StudentShow', compact('student'));
+        $classroom = Classroom::find($student->classroom_id);
+        return Inertia::render('Students/StudentShow')->with([
+            'student' => $student,
+            'classroom' => $classroom
+        ]) ;
     }
 
     /**
