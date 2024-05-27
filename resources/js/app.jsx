@@ -7,21 +7,20 @@ import locale from "antd/locale/en_US";
 createInertiaApp({
     resolve: (name = "Home") => {
         const pages = import.meta.glob("./Pages/**/*.jsx", { eager: true });
-        // console.log("pages: ", pages);
         return pages[`./Pages/${name}.jsx`];
     },
     setup({ el, App, props }) {
         createRoot(el).render(
             <ConfigProvider
                 locale={locale}
-                // componentSize="small"
-                // theme={{
-                //     token: {
-                //         borderRadius: 0,
-                //         colorPrimary: "#fb8b24",
-                //         colorError: "#820263",
-                //     },
-                // }}
+            // componentSize="small"
+            // theme={{
+            //     token: {
+            //         borderRadius: 0,
+            //         colorPrimary: "#fb8b24",
+            //         colorError: "#820263",
+            //     },
+            // }}
             >
                 <App {...props} />
             </ConfigProvider>

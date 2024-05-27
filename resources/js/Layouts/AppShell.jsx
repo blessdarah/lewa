@@ -4,7 +4,7 @@ import {
     TranslationOutlined,
 } from "@ant-design/icons";
 import { ProConfigProvider, ProLayout } from "@ant-design/pro-components";
-import { Avatar, Divider, Input, Menu, Popover, Segmented, theme } from "antd";
+import { Input, Dropdown, Segmented, Button, theme } from "antd";
 import React, { useState } from "react";
 import {
     AiFillDashboard,
@@ -14,7 +14,7 @@ import {
     AiOutlineUser,
 } from "react-icons/ai";
 import { AppModalProvider } from "../Contexts/AppModalContext";
-import { router } from "@inertiajs/react";
+import { router, Link } from "@inertiajs/react";
 import navMenus from "./navMenus";
 
 const SearchInput = () => {
@@ -48,7 +48,6 @@ const SearchInput = () => {
                     />
                 }
                 placeholder="Search"
-                bordered={false}
             />
             <PlusCircleFilled
                 style={{
@@ -63,11 +62,10 @@ const SearchInput = () => {
 const AppShell = ({ children }) => {
     const [settings, setSettings] = useState({
         fixSiderbar: true,
-        layout: "side", // side | top
+        layout: "top", // side | top
         splitMenus: false,
     });
-    const [pathname, setPathname] = useState("/list/sub-page/sub-sub-page1");
-    const [num, setNum] = useState(40);
+    const [_, setPathname] = useState("/list/sub-page/sub-sub-page1");
 
     return (
         <div
@@ -104,9 +102,6 @@ const AppShell = ({ children }) => {
                             },
                         ]}
                         {...navMenus}
-                        // location={{
-                        //   pathname,
-                        // }}
                         siderMenuType="sub"
                         menu={{
                             collapsedShowGroupTitle: true,
@@ -138,89 +133,32 @@ const AppShell = ({ children }) => {
                                         <SearchInput />
                                     ) : null
                                 ) : undefined}
-                                <div>
-                                    <Popover
-                                        placement={
-                                            settings?.layout === "top"
-                                                ? "bottomRight"
-                                                : "topRight"
-                                        }
-                                        content={
-                                            <Menu
-                                                mode="vertical"
-                                                items={[
-                                                    {
-                                                        label: (
-                                                            <a href="/">
-                                                                Profile
-                                                            </a>
-                                                        ),
-                                                        icon: <AiOutlineUser />,
-                                                        key: "profile",
-                                                    },
-                                                    {
-                                                        label: (
-                                                            <a href="/">
-                                                                Switch branch
-                                                            </a>
-                                                        ),
-                                                        icon: <AiOutlineApi />,
-                                                        key: "branch",
-                                                    },
-                                                    {
-                                                        label: (
-                                                            <a href="/">
-                                                                Logout
-                                                            </a>
-                                                        ),
-                                                        icon: (
-                                                            <AiOutlineLogout />
-                                                        ),
-                                                        key: "logout",
-                                                    },
-                                                ]}
-                                            />
-                                        }
-                                        title={
-                                            <>
-                                                <p
-                                                    style={{
-                                                        margin: 0,
-                                                        padding: 0,
-                                                        textAlign: "center",
-                                                    }}
-                                                >
-                                                    {/* {auth &&
-                                                            auth.user &&
-                                                            auth.user?.profile.name} */}
-                                                    Admin name
-                                                </p>
-                                                <Divider
-                                                    style={{
-                                                        margin: 0,
-                                                        padding: 0,
-                                                    }}
-                                                />
-                                            </>
-                                        }
-                                        trigger="click"
-                                    >
-                                        <Avatar
-                                            src="https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg"
-                                            style={{ cursor: "pointer" }}
-                                        />
-                                    </Popover>
-                                </div>
                             </>
                         )}
                         actionsRender={(props) => {
                             if (props.isMobile) return [];
                             return [
                                 props.layout !== "side" &&
-                                document.body.clientWidth > 1400 ? (
+                                    document.body.clientWidth > 1400 ? (
                                     <SearchInput />
                                 ) : undefined,
                                 <TranslationOutlined />,
+                                <Link href="/logout" method="post" as="button"
+                                    style={{
+                                        background: 'white',
+                                        border: '1px solid #f8f8f8',
+                                        cursor: 'pointer',
+                                    }}>
+                                    Logout
+                                </Link>,
+                                <Link href="/profile" as="button"
+                                    style={{
+                                        background: 'white',
+                                        border: '1px solid #f8f8f8',
+                                        cursor: 'pointer',
+                                    }}>
+                                    Profile
+                                </Link>
                             ];
                         }}
                         headerTitleRender={(logo, title, _) => {

@@ -26,7 +26,7 @@ const SubjectIndex = ({ subjects }) => {
             subTitle="Manage subjects"
             backIcon={<AiOutlineArrowLeft />}
             breadcrumb={{
-                routes: [
+                items: [
                     {
                         path: "/",
                         breadcrumbName: "Subjects",

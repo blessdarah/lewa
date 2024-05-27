@@ -2,17 +2,25 @@ import React from "react";
 import { useForm, Link } from '@inertiajs/react'
 import { Card, Flex, Form, Input, Button } from 'antd'
 
-const Home = () => {
+const Register = () => {
     const { errors, setData, processing, post } = useForm();
 
     const onFinish = (values) => {
         setData(values);
-        post('/login');
+        post('/register');
     }
 
     return (
-        <Card style={{ width: '40rem', margin: '2rem auto' }} title="Login">
+        <Card style={{ width: '40rem', margin: '2rem auto' }} title="Create new account">
             <Form onFinish={onFinish} size="large" layout="vertical">
+                <Form.Item
+                    label="Username"
+                    name="name"
+                    validateStatus={errors.name ? "error" : ""}
+                    help={errors.name ?? ""}
+                >
+                    <Input />
+                </Form.Item>
                 <Form.Item
                     label="Email"
                     name="email"
@@ -30,14 +38,12 @@ const Home = () => {
                     <Input type="password" />
                 </Form.Item>
                 <Flex align="center" justify="space-between">
-                    <Button htmlType="submit" type="primary" loading={processing}>Login</Button>
-                    <Link href="/register">Register new user</Link>
+                    <Button htmlType="submit" type="primary" loading={processing}>Create account</Button>
+                    <Link href="/login">Login instead</Link>
                 </Flex>
             </Form>
         </Card>
     )
 };
 
-// Home.layout = (page) => <AppLayout children={page} />;
-
-export default Home;
+export default Register;

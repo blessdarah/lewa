@@ -1,6 +1,6 @@
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { router } from "@inertiajs/react";
-import { Breadcrumb, Button, Input } from "antd";
+import { Button, Input } from "antd";
 import React, { useState } from "react";
 import { AiOutlineArrowLeft, AiOutlinePlus } from "react-icons/ai";
 import { ClassroomTable } from "../../Components/Classroom/ClassroomTable.jsx";
@@ -22,7 +22,7 @@ const ClassroomIndex = ({ classrooms }) => {
         <PageContainer
             loading={false}
             breadcrumb={{
-                routes: [
+                items: [
                     {
                         path: "/",
                         breadcrumbName: "Classrooms",

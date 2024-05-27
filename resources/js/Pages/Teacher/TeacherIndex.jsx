@@ -22,7 +22,7 @@ const TeacherIndex = ({ teachers }) => {
         <PageContainer
             loading={false}
             breadcrumb={{
-                routes: [
+                items: [
                     {
                         path: "/",
                         breadcrumbName: "Teachers",

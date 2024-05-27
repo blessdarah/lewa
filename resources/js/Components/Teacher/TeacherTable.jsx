@@ -12,7 +12,7 @@ export const TeacherTable = ({ teachers }) => {
                     columns={teacherTableColumns}
                     size="small"
                     scroll={{ x: 600 }}
-                    rowKey={"code"}
+                    rowKey={"id"}
                     onRow={(record) => {
                         return {
                             onClick: (e) => {

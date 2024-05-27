@@ -1,16 +1,13 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
+import { ConfigProvider } from 'antd'
+import '../../css/app.css'
 
 const AppLayout = ({ children }) => {
     return (
-        <main>
-            <header>
-                <Link href="/">Home</Link>
-                <Link href="/about">About</Link>
-                <Link href="/contact">Contact</Link>
-            </header>
+        <div>
             {children}
-        </main>
+        </div>
     );
 };
 

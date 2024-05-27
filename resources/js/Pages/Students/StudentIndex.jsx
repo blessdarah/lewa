@@ -27,7 +27,7 @@ const StudentIndex = ({ students }) => {
             subTitle="Manage students"
             backIcon={<AiOutlineArrowLeft />}
             breadcrumb={{
-                routes: [
+                items: [
                     {
                         path: "/",
                         breadcrumbName: "Students",
